@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+  name: diabetes-dashboard-server
+  namespace: diabetes-dashboard
+spec:
+  rules:
+  - host: diabetes.tgdev.xyz
+    http:
+      paths:
+      - backend:
+          service:
+            name: diabetes-dashboard-server
+            port:
+              number: 3000
+        path: /api
+        pathType: Prefix
+  tls:
+  - hosts:
+    - diabetes.tgdev.xyz
+    secretName: diabetes-dashboard-tls

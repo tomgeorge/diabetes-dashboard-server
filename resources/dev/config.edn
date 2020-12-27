@@ -1,0 +1,12 @@
+{:server {:port 3000}
+  :database {:name "dexcom-dev"}
+  :ragtime {}
+  :dexcom {:client-secret "GVe1LIjtx13vAYMi"
+           :client-id "Few6FDs8vGhUNthRYFPIS7rco4uVgA0d"
+           :redirect-uri "https://diabetes.tgdev.xyz/redirect"
+           :login-endpoint "https://api.dexcom.com/v2/oauth2/login"
+           :oauth-endpoint "https://api.dexcom.com/v2/oauth2/token"
+           :blood-sugar-endpoint "https://api.dexcom.com/v2/users/self/egvs"
+           :calibrations-endpoint "https://api.dexcom.com/v2/users/self/calibrations"}}
+
+           

@@ -1,0 +1,34 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: diabetes-dashboard-server
+build:
+  artifacts:
+  - image: quay.io/tgeorge/diabetes-dashboard-server-dev
+    docker:
+      dockerfile: Dockerfile.dev
+    sync:
+      manual:
+      - src: "**/*.clj"
+        dest: "/src/app"
+      - src: "*.clj"
+        dest: "/src/app"
+      - src: "**/*.edn"
+        dest: "/src/app"
+      - src: ".cpcache/"
+        dest: "/src/app/.cpcache"
+      - src: "*.db"
+        dest: "/src/app"
+      - src: "**/*.json"
+        dest: "/src/app"
+      - src: "**/*.db"
+        dest: "/src/app"
+      - src: "**/*.db-journal"
+        dest: "/src/app"
+      - src: "**/*.sql"
+        dest: "/src/app"
+deploy:
+  kubectl:
+    manifests:
+    - k8s/deployment-dev.yaml
+    - k8s/service.yaml

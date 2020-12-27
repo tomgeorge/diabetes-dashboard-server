@@ -1,0 +1,25 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.0"}
+        compojure/compojure {:mvn/version "1.6.1"}
+        ring/ring-defaults {:mvn/version "0.3.2"}
+        ring/ring-json {:mvn/version "0.5.0"}
+        clj-http/clj-http {:mvn/version "3.10.3"}
+        bananaoomarang/ring-debug-logging {:mvn/version "1.1.0"}
+        info.sunng/ring-jetty9-adapter {:mvn/version "0.14.1"}
+        seancorfield/next.jdbc {:mvn/version "1.1.613"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.34.0"}
+        cprop/cprop {:mvn/version "0.1.17"}
+        yesql/yesql {:mvn/version "0.5.3"}
+        ragtime/ragtime {:mvn/version "0.8.0"}
+        cheshire/cheshire {:mvn/version "5.10.0"}}
+ :aliases {:dev 
+           {:extra-paths ["env/dev" "resources/dev"]
+            :extra-deps {javax.servlet/servlet-api {:mvn/version "2.5"}
+                         cljfmt/cljfmt {:mvn/version "0.6.4"}
+                         ring/ring-mock {:mvn/version "0.3.2"}
+                         org.clojure/tools.namespace {:mvn/version "1.1.0"}
+                         nrepl/nrepl {:mvn/version "0.8.3"}
+                         cider/cider-nrepl {:mvn/version "0.25.2"}
+                         org.clojure/test.check {:mvn/version "0.9.0"}}}
+           :repl-server {:extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}}
+                         :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}}}

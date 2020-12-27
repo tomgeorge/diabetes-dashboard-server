@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diabetes-dashboard-server
+  namespace: diabetes-dashboard
+  labels:
+    app: diabetes-dashboard-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diabetes-dashboard-server
+  template:
+    metadata:
+      labels:
+        app: diabetes-dashboard-server
+    spec:
+      containers:
+      - name: diabetes-dashboard-server
+        image: quay.io/tgeorge/diabetes-dashboard-server-dev
