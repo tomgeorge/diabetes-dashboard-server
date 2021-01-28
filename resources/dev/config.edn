@@ -1,9 +1,9 @@
 {:server {:port 3000}
   :database {:name "dexcom-dev"}
   :ragtime {}
-  :dexcom {:client-secret "GVe1LIjtx13vAYMi"
-           :client-id "Few6FDs8vGhUNthRYFPIS7rco4uVgA0d"
-           :redirect-uri "https://diabetes.tgdev.xyz/redirect"
+  :dexcom {:client-secret "sdqQ5bznVsoApV7K"
+           :client-id "lKsv0BUU4wDY3o3Ql3j6Y91Fse3YvP0o"
+           :redirect-uri "https://diabetes-stage.tgdev.xyz/redirect"
            :login-endpoint "https://api.dexcom.com/v2/oauth2/login"
            :oauth-endpoint "https://api.dexcom.com/v2/oauth2/token"
            :blood-sugar-endpoint "https://api.dexcom.com/v2/users/self/egvs"

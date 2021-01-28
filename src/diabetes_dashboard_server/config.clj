@@ -1,13 +1,5 @@
 (ns diabetes-dashboard-server.config
-  (:require [cprop.core :refer [load-config]]))
+  (:require [cprop.core :refer [load-config]]
+            [mount.core :refer [defstate]]))
 
-(def config (atom nil))
-
-(defn init-config!
-  []
-  (reset! config (load-config)))
-
-(defn unset-config!
-  []
-  (reset! config nil))
-
+(defstate config :start (load-config))

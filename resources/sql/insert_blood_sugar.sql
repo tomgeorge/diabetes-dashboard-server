@@ -1,12 +1,12 @@
 insert into blood_sugars(
   system_time,
-  displayTime,
+  display_time,
   value,
-  realTimeValue,
-  smoothedValue,
+  realtime_value,
+  smoothed_value,
   status,
   trend,
-  trendRate) values (
+  trend_rate) values (
   :systemTime,
   :displayTime,
   :value,

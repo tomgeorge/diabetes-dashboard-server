@@ -11,15 +11,29 @@
         cprop/cprop {:mvn/version "0.1.17"}
         yesql/yesql {:mvn/version "0.5.3"}
         ragtime/ragtime {:mvn/version "0.8.0"}
-        cheshire/cheshire {:mvn/version "5.10.0"}}
+        cheshire/cheshire {:mvn/version "5.10.0"}
+        mount/mount {:mvn/version "0.1.16"}
+        honeysql/honeysql {:mvn/version "1.0.444"}
+        slingshot/slingshot {:mvn/version "0.12.2"}
+        io.pedestal/pedestal.log {:mvn/version "0.5.8"}
+        ch.qos.logback/logback-classic {:mvn/version "1.2.3"}}
  :aliases {:dev 
-           {:extra-paths ["env/dev" "resources/dev"]
+           {:extra-paths ["dev" "resources/dev" "test" "resources/test"]
             :extra-deps {javax.servlet/servlet-api {:mvn/version "2.5"}
                          cljfmt/cljfmt {:mvn/version "0.6.4"}
-                         ring/ring-mock {:mvn/version "0.3.2"}
+                         ring/ring-mock {:mvn/version "0.4.0"}
+                         org.clojure/java.classpath {:mvn/version "1.0.0"}
+                         org.clojure/tools.deps.alpha {:mvn/version "0.9.857"}
                          org.clojure/tools.namespace {:mvn/version "1.1.0"}
                          nrepl/nrepl {:mvn/version "0.8.3"}
                          cider/cider-nrepl {:mvn/version "0.25.2"}
-                         org.clojure/test.check {:mvn/version "0.9.0"}}}
+                         org.clojure/test.check {:mvn/version "0.9.0"}
+                         clj-http-fake/clj-http-fake {:mvn/version "1.0.3"}}}
            :repl-server {:extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}}
-                         :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}}}
+                         :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
+           :uberjar {:extra-paths ["resources/prod" "resources/public" "resources/sql" "resources/migrations"]
+                     :extra-deps {seancorfield/depstar {:mvn/version "1.1.136"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true
+                                 :jar "target/diabetes-dashboard-server.jar"
+                                 :main-class diabetes-dashboard-server.app}}}}

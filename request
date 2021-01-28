@@ -1,0 +1,7 @@
+good:
+:content-type application/json
+:body {:responseCode 8bb035ce8adc3faba96283c857884897}
+
+bad:
+:headers Content-Type=application/json 
+:body responseCode=hi mom

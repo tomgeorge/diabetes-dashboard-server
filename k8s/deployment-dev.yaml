@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: diabetes-dashboard-server
-  namespace: diabetes-dashboard
+  name: diabetes-dashboard-server-stage
+  namespace: diabetes-dashboard-stage
   labels:
-    app: diabetes-dashboard-server
+    app: diabetes-dashboard-server-stage
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: diabetes-dashboard-server
+      app: diabetes-dashboard-server-stage
   template:
     metadata:
       labels:
-        app: diabetes-dashboard-server
+        app: diabetes-dashboard-server-stage
     spec:
       containers:
       - name: diabetes-dashboard-server

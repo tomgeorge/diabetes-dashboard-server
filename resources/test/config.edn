@@ -1,0 +1,12 @@
+{:server {:port 3000}
+  :database {:name "test"}
+  :ragtime {}
+  :dexcom {:client-secret "secret"
+           :client-id "id"
+           :redirect-uri "/redirect"
+           :login-endpoint "https://api.dexcom.com/v2/oauth2/login"
+           :oauth-endpoint "https://fake-oauth"
+           :blood-sugar-endpoint "https://api.dexcom.com/v2/users/self/egvs"
+           :calibrations-endpoint "https://api.dexcom.com/v2/users/self/calibrations"}}
+
+           

@@ -3,8 +3,6 @@ kind: Service
 metadata:
   labels:
     app: diabetes-dashboard
-    app.kubernetes.io/managed-by: skaffold
-    skaffold.dev/run-id: 6a4dde54-d16c-4e8c-b9c2-a41671eebf52
   name: diabetes-dashboard-server
   namespace: diabetes-dashboard
 spec:
@@ -13,10 +11,6 @@ spec:
     protocol: TCP
     targetPort: 3000
     name: server
-  - port: 12345
-    protocol: TCP
-    targetPort: 12345
-    name: repl
   selector:
     app: diabetes-dashboard-server
   type: ClusterIP

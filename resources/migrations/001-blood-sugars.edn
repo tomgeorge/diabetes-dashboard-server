@@ -1,9 +1,9 @@
-{:up ["CREATE TABLE blood_sugars (system_time TEXT PRIMARY KEY NOT NULL, 
-      displayTime TEXT, 
+{:up ["CREATE TABLE blood_sugars (system_time DATE PRIMARY KEY NOT NULL, 
+      display_time DATE, 
       value INTEGER, 
-      realtimeValue INTEGER,
-      smoothedValue INTEGER,
+      realtime_value INTEGER,
+      smoothed_value INTEGER,
       status TEXT,
       trend TEXT,
-      trendRate REAL)"]
+      trend_rate REAL)"]
  :down ["DROP TABLE blood_sugars"]}

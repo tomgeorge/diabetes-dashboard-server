@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: diabetes-dashboard-stage
+    app.kubernetes.io/managed-by: skaffold
+    skaffold.dev/run-id: 6a4dde54-d16c-4e8c-b9c2-a41671eebf52
+  name: diabetes-dashboard-server-stage
+  namespace: diabetes-dashboard-stage
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+    name: server
+  - port: 12345
+    protocol: TCP
+    targetPort: 12345
+    name: nrepl
+  selector:
+    app: diabetes-dashboard-server-stage
+  type: ClusterIP
