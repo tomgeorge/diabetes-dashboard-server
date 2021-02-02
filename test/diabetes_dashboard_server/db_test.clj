@@ -5,9 +5,15 @@
     [mount.core :refer [defstate] :as mount]
     [cprop.core :refer [load-config]]
     [next.jdbc :as next-jdbc]
+    [next.jdbc.sql :as sql]
     [cheshire.core :as cheshire]
+    [integrant.core :as integrant]
     [ragtime.jdbc :as ragtime-jdbc]
+    [yesql.core :refer [defquery]]
     [ragtime.repl :refer [migrate]]))
+
+(def conf 
+  {:diabetes-dashboard-server/configuration {:database {:dbtype "sqlite" :dbname ":memory:"}}})
 
 (defn json->blood-sugars
   [json]
@@ -24,32 +30,28 @@
   (f)
   (mount/stop))
 
-(let [datasource (next-jdbc/get-datasource {:dbtype "sqlite" :dbname ":memory:"}) 
-      conn (next-jdbc/get-connection datasource)
-      ragtime {:datastore (ragtime-jdbc/sql-database {:connection  conn})
-               :migrations (ragtime-jdbc/load-resources "migrations")}]
-  (migrate ragtime)
-  (next-jdbc/execute! conn ["select * from ragtime_migrations"])
-  (db/save-blood-sugars! (take 10 (json->blood-sugars "resources/dev/glucose-07-31-2020-09-30.json")) conn)
-  (count (next-jdbc/execute! conn ["select * from blood_sugars"])))
+
+
+(let [datasource (next-jdbc/get-datasource {:dbtype "sqlite" :dbname "testdb"}) 
+      blood-sugars (take 20 (json->blood-sugars "resources/dev/glucose-07-31-2020-09-30.json"))
+      system-times (map :systemTime (take 10 blood-sugars))]
+  (with-open [conn (next-jdbc/get-connection {:dbtype "sqlite" :dbname "testdb"})]
+    (db/find-by-time {:system_times system-times} {:connection conn})))
+
+(with-open [connection (next-jdbc/get-connection {:dbtype "sqlite" :dbname "testdb"})]
+  (next-jdbc/execute! connection ["select * from blood_sugars"]))
+
+
 
 (deftest ignore-existing-records
   (testing "when inserting blood sugar records, should ignore records that are already in the database"
-    (let [datasource (next-jdbc/get-datasource {:dbtype "sqlite" :dbname ":memory:"}) 
+    (let [db-spec {:dbtype "sqlite" :dbname "testdb"}
+          datasource (next-jdbc/get-datasource db-spec) 
           conn (next-jdbc/get-connection datasource)
           ragtime {:datastore (ragtime-jdbc/sql-database {:connection conn})
                    :migrations (ragtime-jdbc/load-resources "migrations")}
           blood-sugars (take 20 (json->blood-sugars "resources/dev/glucose-07-31-2020-09-30.json"))]
       (migrate ragtime)
-      (db/save-blood-sugars! (take 10 blood-sugars) conn)
-      (db/save-blood-sugars! (drop 9 blood-sugars) conn)
-      (println (next-jdbc/execute! conn ["select * from ragtime_migrations"]))
-      (is (= 19 (count (next-jdbc/execute! conn ["select * from blood_sugars"])))))))
-
-
-
- 
-(comment
-  {:database {:jdbc {:dbtype "sqlite" :dbname (get-in config [:database :name])}
-              :ragtime {:datastore (ragtime-jdbc/sql-database {:dbtype "sqlite" :dbname (get-in config [:database :name])})
-                        :migrations (ragtime-jdbc/load-resources "migrations")}}})
+      (db/save-blood-sugars! (take 10 blood-sugars) conn :db-spec db-spec)
+      (db/save-blood-sugars! (drop 9 blood-sugars) conn :db-spec db-spec)
+      (is (= 19 (next-jdbc/execute! conn ["select * from blood_sugars"]))))))

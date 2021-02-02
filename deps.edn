@@ -13,6 +13,7 @@
         ragtime/ragtime {:mvn/version "0.8.0"}
         cheshire/cheshire {:mvn/version "5.10.0"}
         mount/mount {:mvn/version "0.1.16"}
+        integrant/integrant {:mvn/version "0.8.0"}
         honeysql/honeysql {:mvn/version "1.0.444"}
         slingshot/slingshot {:mvn/version "0.12.2"}
         io.pedestal/pedestal.log {:mvn/version "0.5.8"}

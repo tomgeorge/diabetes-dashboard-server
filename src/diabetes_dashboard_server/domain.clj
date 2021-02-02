@@ -19,3 +19,4 @@
     (db/save-blood-sugars! blood-sugars)
     (catch SQLException sql
       (ex-data sql))))
+

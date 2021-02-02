@@ -11,9 +11,11 @@
             [diabetes-dashboard-server.config :refer [config]]
             [next.jdbc.prepare :as p]
             [next.jdbc.sql :as sql]
+            [next.jdbc.sql.builder :as builder]
             [mount.core :as mount]
             [io.pedestal.log :as log]
             [clojure.java.classpath :as cp]))
+
 
 (defn start
   []
